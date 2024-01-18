@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: random-service
+  labels:
+    app: random-service
+spec:
+  selector:
+     matchLabels:
+       app: random-service
+  replicas: 2
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: 
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: random-service
+    spec:
+      containers:
+        - image: random-service:test
+          name: random-service
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: '128Mi'
+              cpu: '200m'

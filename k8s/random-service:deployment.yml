@@ -1,27 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: k8s-demo
   name: random-service
   labels:
     app: random-service
 spec:
   selector:
-     matchLabels:
-       app: random-service
+    matchLabels:
+      app: random-service
   replicas: 2
   minReadySeconds: 15
   strategy:
     type: RollingUpdate
-    rollingUpdate: 
+    rollingUpdate:
       maxUnavailable: 1
-      maxSurge: 1 
+      maxSurge: 1
   template:
     metadata:
       labels:
         app: random-service
     spec:
       containers:
-        - image: random-service:test
+        - image: random-service:latest
+          imagePullPolicy: IfNotPresent
           name: random-service
           ports:
             - containerPort: 80

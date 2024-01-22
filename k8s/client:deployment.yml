@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: k8s-demo
   name: client
 spec:
   replicas: 2
@@ -19,7 +20,8 @@ spec:
         app: client
     spec:
       containers:
-        - image: client:test
+        - image: client:latest
+          imagePullPolicy: IfNotPresent
           name: client
           ports:
             - containerPort: 80

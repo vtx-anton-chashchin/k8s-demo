@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: k8s-demo
   name: random-service
 spec:
   ports:

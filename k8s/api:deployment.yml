@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: k8s-demo
   name: api
   labels:
     app: api
@@ -21,7 +22,8 @@ spec:
         app: api
     spec:
       containers:
-      - image: api:test
+      - image: api:latest
+        imagePullPolicy: IfNotPresent
         name: api
         env:
           - name: RANDOM_SERVICE_URL
